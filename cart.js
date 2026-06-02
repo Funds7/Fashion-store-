@@ -1,39 +1,37 @@
 let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
-const cartItems = document.getElementById("cart-items");
+const box = document.getElementById("cart-items");
 const totalBox = document.getElementById("total");
 const checkout = document.getElementById("checkout");
 
-function renderCart() {
-  cartItems.innerHTML = "";
+function render(){
   let total = 0;
+  box.innerHTML = "";
 
-  cart.forEach(item => {
-    total += item.price * item.qty;
+  cart.forEach(i=>{
+    total += i.price * i.qty;
 
-    cartItems.innerHTML += `
-      <div class="cart-item">
-        <h3>${item.name}</h3>
-        <p>₦${item.price} x ${item.qty}</p>
-
-        <button onclick="removeItem(${item.id})">Remove</button>
+    box.innerHTML += `
+      <div>
+        <h3>${i.name}</h3>
+        <p>₦${i.price} x ${i.qty}</p>
+        <button onclick="removeItem(${i.id})">Remove</button>
       </div>
     `;
   });
 
   totalBox.innerText = "Total: ₦" + total;
 
-  let message = cart.map(i =>
-    `${i.name} x${i.qty}`
-  ).join(", ");
+  let msg = cart.map(i=>`${i.name} x${i.qty}`).join(", ");
 
-  checkout.href = `https://wa.me/2347088100290?text=I want to order: ${message}`;
+  checkout.href =
+  `https://wa.me/2347088100290?text=Order: ${msg}`;
 }
 
-function removeItem(id) {
-  cart = cart.filter(item => item.id !== id);
+function removeItem(id){
+  cart = cart.filter(i=>i.id!==id);
   localStorage.setItem("cart", JSON.stringify(cart));
-  renderCart();
+  render();
 }
 
-renderCart();
+render();
