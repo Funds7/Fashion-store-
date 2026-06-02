@@ -1,7 +1,7 @@
 body{
   font-family:Arial;
   margin:0;
-  background:#f5f5f5;
+  background:#f4f4f4;
 }
 
 header{
@@ -12,7 +12,7 @@ header{
   color:white;
 }
 
-#product-list{
+#product-grid{
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
   gap:15px;
@@ -23,6 +23,7 @@ header{
   background:white;
   padding:10px;
   border-radius:10px;
+  box-shadow:0 3px 10px rgba(0,0,0,0.1);
 }
 
 .card img{
@@ -32,16 +33,10 @@ header{
 }
 
 button{
+  width:100%;
+  padding:10px;
+  margin-top:5px;
   background:black;
   color:white;
   border:none;
-  padding:10px;
-  width:100%;
-  margin-top:10px;
-}
-
-.cart-item{
-  background:white;
-  margin:10px;
-  padding:10px;
 }
