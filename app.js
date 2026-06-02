@@ -21,17 +21,17 @@ const products = [
   }
 ];
 
-function renderProducts(){
-  if(!productList) return;
+function renderProducts() {
+  if (!productList) return;
 
   productList.innerHTML = "";
 
-  products.forEach(p=>{
+  products.forEach(p => {
     productList.innerHTML += `
       <div class="card">
         <img src="${p.image}" alt="${p.name}">
         <h3>${p.name}</h3>
-        <div class="price">₦${p.price}</div>
+        <div class="price">₦${p.price || 0}</div>
       </div>
     `;
   });
