@@ -1,74 +1,40 @@
-let cart = JSON.parse(localStorage.getItem("cart")) || [];
+const productList = document.getElementById("product-list");
 
-const grid = document.getElementById("product-grid");
-const cartCount = document.getElementById("cart-count");
-const drawer = document.getElementById("cart-drawer");
+const products = [
+  {
+    id: 1,
+    name: "Designer Bag",
+    price: 40000,
+    image: "images/beg1.jpg"
+  },
+  {
+    id: 2,
+    name: "Classic Dress",
+    price: 28000,
+    image: "https://images.unsplash.com/photo-1496747611176-843222e1e57c"
+  },
+  {
+    id: 3,
+    name: "Street Hoodie",
+    price: 22000,
+    image: "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f"
+  }
+];
 
-function saveCart(){
-  localStorage.setItem("cart", JSON.stringify(cart));
-}
+function renderProducts(){
+  if(!productList) return;
 
-function updateCartCount(){
-  cartCount.innerText = cart.reduce((a,b)=>a+b.qty,0);
-}
+  productList.innerHTML = "";
 
-function renderProducts(list){
-  grid.innerHTML = "";
-
-  list.forEach(p=>{
-    grid.innerHTML += `
+  products.forEach(p=>{
+    productList.innerHTML += `
       <div class="card">
-        <img src="${p.image}">
+        <img src="${p.image}" alt="${p.name}">
         <h3>${p.name}</h3>
-        <p>₦${p.price}</p>
-
-        <button onclick="add(${p.id})">Add to Cart</button>
-        <button onclick="view(${p.id})">View</button>
+        <div class="price">₦${p.price}</div>
       </div>
     `;
   });
 }
 
-function add(id){
-  const p = products.find(x=>x.id===id);
-
-  let item = cart.find(i=>i.id===id);
-
-  if(item){
-    item.qty++;
-  } else {
-    cart.push({...p, qty:1});
-  }
-
-  saveCart();
-  updateCartCount();
-  renderDrawer();
-}
-
-function view(id){
-  localStorage.setItem("selected", id);
-  window.location.href = "product.html";
-}
-
-function renderDrawer(){
-  drawer.innerHTML = "<h3>Your Cart</h3>";
-
-  cart.forEach(i=>{
-    drawer.innerHTML += `
-      <p>${i.name} x${i.qty}</p>
-    `;
-  });
-}
-
-document.getElementById("search").addEventListener("input",(e)=>{
-  let v = e.target.value.toLowerCase();
-
-  let filtered = products.filter(p=>
-    p.name.toLowerCase().includes(v)
-  );
-
-  renderProducts(filtered);
-});
-
-renderProducts(products);
-updateCartCount();
+renderProducts();
